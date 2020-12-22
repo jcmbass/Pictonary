@@ -64,4 +64,7 @@ class Network:
         self.client.close()
 
 n = Network("Tech with Yosu")
-print(n.send({0:["hello"]}))
+time = 75
+while time >= 0:
+    time = n.send({9:[]})
+    print(time)

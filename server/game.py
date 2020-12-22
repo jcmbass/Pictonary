@@ -18,8 +18,8 @@ class Game(object):
 
         """
         self.id = id
-        self.players = []
-        self.words_used = []
+        self.players = players
+        self.words_used = set()
         self.round = None
         self.board = Board()
         self.player_draw_ind = 0
@@ -78,7 +78,7 @@ class Game(object):
         """Give a dict of player scores
         :returns: dict
         """
-        scores = {player:player.get_score() for player in self.players}
+        scores = {player.name:player.get_score() for player in self.players}
         return scores
 
     def skip(self):
@@ -131,13 +131,14 @@ class Game(object):
         :returns: str
 
         """
-        with open("words.txt", "r") as f:
+        with open("server/words.txt", "r") as f:
             words = []
             for line in f:
                 wrd = line.strip()
                 if wrd not in self.words_used:
                     words.append(wrd)
 
-            self.words_used.append(wrd)
-            r = random.randint(0, len(words))
-            return words[r].strip()
+            wrd = random.choice(words)
+            self.words_used.add(wrd)
+
+            return wrd
