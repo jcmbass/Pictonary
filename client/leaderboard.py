@@ -38,7 +38,7 @@ class Leaderboard(object):
             name = self.name_font.render(score[0], 1, (0,0,0))
             win.blit(name, (self.x - name.get_width()/2 + self.WIDTH/2, self.y + i*self.HEIGHT_ENTRY + 20))
 
-            score = self.score_font.render(score[0], 1, (0,0,0))
+            score = self.score_font.render(score[1], 1, (0,0,0))
             win.blit(score, (self.x - name.get_width()/2 + self.WIDTH/2, self.y + i*self.HEIGHT_ENTRY + 40))
 
     def add_player(self, player):
