@@ -17,7 +17,7 @@ class Network:
             return json.loads(self.client.recv(2048))
         except Exception as e:
             self.disconnect(e)
-    
+
     def send_str(self, data):
         """
         docstring
@@ -37,22 +37,22 @@ class Network:
         """
         try:
             self.client.send(json.dumps(data).encode())
-            d = ""  # variable for storing all bytes that can be recieved.
+            decoded = ""  # variable for storing all bytes that can be recieved.
             while 1:
                 last = self.client.recv(1024).decode()
-                d += last
+                decoded += last
                 try:
-                    if d.count(".") == 1:
+                    if decoded.count(".") == 1:
                         break
                 except:
                     pass
             try:
-                if d[-1] == ".":
-                    d = d[:-1]
+                if decoded[-1] == ".":
+                    decoded = decoded[:-1]
             except:
                 pass
             keys = [key for key in data.keys()]
-            return json.loads(d)[str(keys[0])]
+            return json.loads(decoded)[str(keys[0])]
         except socket.error as e:
             self.disconnect(e)
 

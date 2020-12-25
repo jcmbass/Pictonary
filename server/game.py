@@ -39,7 +39,7 @@ class Game(object):
             if self.player_draw_ind >= len(self.players):
                 self.round_ended()
                 self.end_game()
-            
+
             self.round_count += 1
         except:
             self.end_game()

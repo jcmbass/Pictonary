@@ -15,7 +15,7 @@ class TopBar(object):
         self.word = ""
         self.round = 1
         self.max_round = 8
-        self.round_font = pygame.font.SysFont("comicSans", 50)
+        self.round_font = pygame.font.SysFont("comicsans", 50)
         self.BORDER_THICKNESS = 5
 
     def draw(self, win):
@@ -23,7 +23,7 @@ class TopBar(object):
         docstring
         """
         pygame.draw.rect(win, (0,0,0), (self.x, self.y, self.width, self.height), self.BORDER_THICKNESS)
-        
+
         # draw round
         txt = self.round_font.render(f"Round {self.round} of {self.max_round}", 1, (0,0,0))
         win.blit(txt, (self.x + 10, self.y + self.height/2 - txt.get_height()/2))
@@ -44,9 +44,9 @@ class TopBar(object):
                 new_str += "_"
             else:
                 new_str += " "
-        
+
         return new_str
-    
+
     def change_word(self, word):
         """
         docstring
