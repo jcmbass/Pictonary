@@ -21,7 +21,8 @@ class Game(object):
         self.board = Board(305, 125)
         self.top_bar = TopBar(10, 10, 1280, 100)
         self.players = []
-        self.skip_button = TextButton(350, 800, 100, 50, (255,255,0), "skip")
+        self.skip_button = TextButton(85, 790, 125, 60, (255,255,0), "skip")
+        self.drawing = False
         for player in self.players:
             self.leaderboard.add_player(player)
 
@@ -37,6 +38,18 @@ class Game(object):
         self.skip_button.draw(self.win)
         pygame.display.update()
 
+    def chek_click(self):
+        """
+        handles clicks on buttons and screen
+        :returns: None
+        """
+        mouse = pygame.mouse.get_pos()
+        if self.skip_button.click(*mouse):
+            print("mouse cliked")
+        clicked_board = self.board.click(*mouse)
+        if clicked_board:
+            self.board.update(*clicked_board, (000,000,000))
+
     def run(self):
         """TODO: Docstring for run.
         :returns: TODO
@@ -45,12 +58,14 @@ class Game(object):
         run = True
         clock = pygame.time.Clock()
         while run:
-            clock.tick(10)
+            clock.tick(120)
             self.draw()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                     break
+                if pygame.mouse.get_pressed()[0]:
+                    self.chek_click()
         pygame.quit()
 
 if __name__ == "__main__":
