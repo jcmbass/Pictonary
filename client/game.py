@@ -17,10 +17,11 @@ class Game(object):
         self.WIDTH = 1300
         self.HEIGHT = 1000
         self.win = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-        self.leaderboard = Leaderboard(50, 110)
-        self.board = Board(310, 120)
+        self.leaderboard = Leaderboard(50, 125)
+        self.board = Board(305, 125)
         self.top_bar = TopBar(10, 10, 1280, 100)
         self.players = []
+        self.skip_button = TextButton(350, 800, 100, 50, (255,255,0), "skip")
         for player in self.players:
             self.leaderboard.add_player(player)
 
@@ -33,7 +34,7 @@ class Game(object):
         self.leaderboard.draw(self.win)
         self.top_bar.draw(self.win)
         self.board.draw(self.win)
-
+        self.skip_button.draw(self.win)
         pygame.display.update()
 
     def run(self):
