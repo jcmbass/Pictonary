@@ -7,6 +7,7 @@ from menu import Menu
 from tool_bar import ToolBar
 from leaderboard import Leaderboard
 from player import Player
+from bottom_bar import BottomBar
 
 class Game(object):
 
@@ -21,8 +22,9 @@ class Game(object):
         self.board = Board(305, 125)
         self.top_bar = TopBar(10, 10, 1280, 100)
         self.players = []
-        self.skip_button = TextButton(85, 790, 125, 60, (255,255,0), "skip")
-        self.drawing = False
+        self.skip_button = TextButton(85, 825, 125, 60, (255,255,0), "skip")
+        self.bottom_bar = BottomBar(305, 880, self)
+        self.draw_color = (0,0,0)
         for player in self.players:
             self.leaderboard.add_player(player)
 
@@ -36,6 +38,7 @@ class Game(object):
         self.top_bar.draw(self.win)
         self.board.draw(self.win)
         self.skip_button.draw(self.win)
+        self.bottom_bar.draw(self.win)
         pygame.display.update()
 
     def chek_click(self):
@@ -48,7 +51,7 @@ class Game(object):
             print("mouse cliked")
         clicked_board = self.board.click(*mouse)
         if clicked_board:
-            self.board.update(*clicked_board, (000,000,000))
+            self.board.update(*clicked_board, self.draw_color)
 
     def run(self):
         """TODO: Docstring for run.
