@@ -68,8 +68,9 @@ class Game(object):
 
         """
         run = True
-        #clock = pygame.time.Clock()
+        clock = pygame.time.Clock()
         while run:
+            clock.tick(60)
             self.draw()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

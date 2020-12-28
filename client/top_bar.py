@@ -5,9 +5,16 @@ import pygame
 
 class TopBar(object):
     """
-    docstring
+    For displaying information related to the game and a timer for each round.
     """
     def __init__(self, x, y, width, height):
+        """
+        Instantiate the topbar.
+        :x: float
+        :y: float
+        :width: int
+        :height: int
+        """
         self.x = x
         self.y = y
         self.width = width
@@ -21,7 +28,9 @@ class TopBar(object):
 
     def draw(self, win):
         """
-        docstring
+        Draws the top bar. It gets the round informtation and displays it properly.
+        :win: Win
+        :returns: None
         """
         pygame.draw.rect(win, (0,0,0), (self.x, self.y, self.width, self.height), self.BORDER_THICKNESS)
 
@@ -40,7 +49,9 @@ class TopBar(object):
     @staticmethod
     def underscore_text(text):
         """
-        docstring
+        Method for hiding the word with blank underscores.
+        :text: str
+        :returns: str
         """
         new_str = ""
 
@@ -54,12 +65,16 @@ class TopBar(object):
 
     def change_word(self, word):
         """
-        docstring
+        Receives a word and change the currect word.
+        :word: str
+        :returns: None
         """
         self.word = word
 
     def change_round(self, rnd):
         """
-        docstring
+        Receives an int and change the round.
+        :rnd: int
+        :returns: None
         """
         self.round = rnd
