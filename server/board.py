@@ -4,7 +4,10 @@ Stores the state of the drawing board.
 
 class Board(object):
 
-    """Docstring for Board."""
+    """
+    Server side board handles the state of all players boards.
+    compressed board is handle here.
+    """
     ROWS = COLS = 720
 
     def __init__(self):
@@ -23,31 +26,32 @@ class Board(object):
         self.data[y][x] = color
 
     def clear(self):
-        """Clears board to all white.
+        """
+        Clears board to all white.
         :returns: None
-
         """
         self.data = self._create_empty_board()
 
     def _create_empty_board(self):
-        """Creates an empty board (all white)
-        :returns: TODO
+        """
+        Creates an empty board (all white)
+        :returns: None
 
         """
         return [[0 for _ in range(self.COLS)] for _ in range(self.ROWS)]
 
     def fill(self, x, y):
-        """Fills in a specific shape or area using recursion.
+        """
+        Fills in a specific shape or area using recursion.
         :x: int
         :y: int
         :returns: None
-
         """
         pass
 
     def get_board(self):
-        """Gets the data of the board.
+        """
+        Gets the data of the board.
         :returns: (int,int,int)
-
         """
         return self.data

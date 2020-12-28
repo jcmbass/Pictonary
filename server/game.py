@@ -8,11 +8,14 @@ import random
 
 class Game(object):
 
-    """Docstring for Game. """
+    """
+    Implements the complete logic from the server side.
+    All its methods for comunicating with players and handling possible scenarios
+    are here.
+    """
 
     def __init__(self, id, players):
         """init the game! once player threshold is met.
-
         :id: int
         :players: Player[]
 
@@ -27,9 +30,9 @@ class Game(object):
         self.start_new_round()
 
     def start_new_round(self):
-        """Starts a new round with a new word.
+        """
+        Starts a new round with a new word.
         :returns: None
-
         """
         try:
             round_word = self.get_word()
@@ -45,20 +48,19 @@ class Game(object):
             self.end_game()
 
     def player_guess(self, player, guess):
-        """Make the player guess the word.
+        """
+        Make the player guess the word.
         :player: Player
         :guess: str
         :returns: bool
-
         """
         return self.round.guess(player, guess)
 
     def player_disconnected(self, player):
-        """Call to clean up objects when player disconnects.
-
+        """
+        Call to clean up objects when player disconnects.
         :player: Player
         :raises: Exception()
-
         """
 
         # TODO check this later
@@ -76,17 +78,18 @@ class Game(object):
             self.end_game()
 
     def get_player_scores(self):
-        """Give a dict of player scores
+        """
+        Give a dict of player scores
         :returns: dict
         """
         scores = {player.name:player.get_score() for player in self.players}
         return scores
 
     def skip(self):
-        """Increments the round skips, if skips are greater than
+        """
+        Increments the round skips, if skips are greater than
         threshold, starts new round.
         :returns: bool
-
         """
         if self.round:
             new_round = self.round.skip()
@@ -100,9 +103,9 @@ class Game(object):
             raise Exception("No round started yet!")
 
     def round_ended(self):
-        """If the round ends call this.
+        """
+        If the round ends call this.
         :returns: None
-
         """
 
         self.round.chat.update_chat(f"Round {self.round_count} has ended")
@@ -110,32 +113,32 @@ class Game(object):
         self.board.clear()
 
     def update_board(self, x, y, color):
-        """Calls update method on board.
+        """
+        Calls update method on board.
         :x: int
         :y: int
         :color: 0-8
         :returns: None
-
         """
         if not self.board:
             raise Exception("No board created")
         self.board.update(x,y,color)
 
     def end_game(self):
-        """Clears the list of all players when the games ends
+        """
+        Clears the list of all players when the games ends
         :returns: None
-
         """
         print(f"[GAME] {self.id} ended")
         for player in self.players:
             player.game = None
 
     def get_word(self):
-        """gives a word that has not yet been used
-        :returns: str
-
         """
-        with open("server/words.txt", "r") as f:
+        Gives a word that has not yet been used
+        :returns: str
+        """
+        with open("words.txt", "r") as f:
             words = []
             for line in f:
                 wrd = line.strip()

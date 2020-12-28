@@ -4,46 +4,47 @@ Represents and stores information about the chat
 
 class Chat(object):
 
-    """Docstring for chat. """
+    """Chat class for server side. Implements some usefull funcionalitty"""
 
     def __init__(self, r):
-        """TODO: to be defined. """
+        """
+        Instantiate chat without content
+        :r: int
+        :returns: None
+        """
         self.content = []
         self.round = r
 
     def update_chat(self, msg):
-        """TODO: Docstring for update_chat.
-
-        :msg: TODO
-        :returns: TODO
-
+        """
+        Append string to the chat content.
+        :msg: str
+        :returns: None
         """
         self.content.append(msg)
 
     def get_chat(self):
-        """TODO: Docstring for get_chat.
-        :returns: TODO
-
+        """
+        :returns: [str]
         """
         return self.content
 
     def __len__(self):
-        """TODO: Docstring for __len__.
-        :returns: TODO
-
+        """
+        :returns: int
         """
         return len(self.content)
 
     def __str__(self):
-        """TODO: Docstring for __str__.
-        :returns: TODO
-
+        """
+        Content in a unique string.
+        :returns: str
         """
         return "".join(self.content)
 
     def __repr__(self):
-        """TODO: Docstring for __repr__.
-        :returns: TODO
-
+        """
+        Object chat in string format
+        :returns: str
         """
         return str(self)

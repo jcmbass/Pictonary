@@ -13,7 +13,8 @@ import json
 
 class Server(object):
     """
-    docstring
+    Parses through the client requests and initialize events according to the
+    key received from client.
     """
     PLAYERS = 1
 

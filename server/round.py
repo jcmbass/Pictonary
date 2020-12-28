@@ -7,15 +7,11 @@ from _thread import *
 from chat import Chat
 
 class Round(object):
-
-    """Docstring for Round. """
-
     def __init__(self, word, player_drawing, game):
         """
         :word: str
         :player_drawing: Player
         :player: Player[]
-
         """
         self.word = word
         self.player_drawing = player_drawing
@@ -28,9 +24,9 @@ class Round(object):
         start_new_thread(self.time_thread, ())
 
     def skip(self):
-        """Returns true if round skipped threshold met
+        """
+        Returns true if round skipped threshold met
         :returns: bool
-
         """
         self.skips += 1
         if self.skips > len(self.game.players) - 2:
@@ -39,18 +35,17 @@ class Round(object):
         return False
 
     def get_scores(self):
-        """returns all the players scores
+        """
+        Returns all the players scores
         :returns: Player[]
-
         """
         return self.player_scores
 
     def get_score(self, player):
-        """Gets a specific player scores
-
+        """
+        Gets a specific player scores
         :player: Player
         :returns: int
-
         """
         if player in self.player_scores:
             return self.player_scores[player]
@@ -58,9 +53,9 @@ class Round(object):
             raise Exception("Player not in score list")
 
     def time_thread(self):
-        """Runs in thread to keep track of time.
+        """
+        Runs in thread to keep track of time.
         :returns: None
-
         """
         
         while self.time > 0:
@@ -69,12 +64,11 @@ class Round(object):
         self.end_round("Time is up")
 
     def guess(self, player, wrd):
-        """returns bool if player got guess correct.
-
+        """
+        Returns bool if player got guess correct.
         :player: Player
         :wrd: str
         :returns: bool
-
         """
         correct = wrd == self.word
         if correct:
@@ -87,11 +81,10 @@ class Round(object):
         return False
 
     def player_left(self, player):
-        """removes player that left from scores and list
-
+        """
+        Removes player that left from scores and list
         :player: Player
         :returns: None
-
         """
         #might not be able to use player as key in dict
         if player in self.player_scores:
@@ -105,10 +98,10 @@ class Round(object):
             self.end_round("Drawing player leaves")
 
     def end_round(self, msg):
-        """Ensures that players scores are correctly updated before calling
+        """
+        Ensures that players scores are correctly updated before calling
         Game to finish the round
         :returns: None
-
         """
         for player in self.game.players:
             if player in self.player_scores:
