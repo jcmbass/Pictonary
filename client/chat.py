@@ -5,14 +5,13 @@ import pygame
 
 class Chat(object):
 
-    """Docstring for Chat. """
+    """Instanciate a chat box and its properties"""
 
     def __init__(self, x, y):
-        """TODO: to be defined.
-
-        :x: TODO
-        :y: TODO
-
+        """
+        Initialyze the chat properties and recieves the position.
+        :x: int
+        :y: int
         """
         self.x = x
         self.y = y
@@ -25,19 +24,20 @@ class Chat(object):
         self.CHAT_GAP = 20
 
     def update_chat(self, msg):
-        """TODO: Docstring for update_chat.
-
-        :msg: TODO
-        :returns: TODO
+        """
+        Recieves a string for messege and append it to content
+        :msg: str
+        :returns: None
 
         """
         self.content.append(msg)
 
     def draw(self, win):
-        """TODO: Docstring for draw.
-
-        :win: TODO
-        :returns: TODO
+        """
+        Drawns the chat box and handles all position in space of each elemente
+        in chat.
+        :win: Win
+        :returns: None
 
         """
         pygame.draw.rect(win, (200, 200, 200), (self.x, self.y + self.HEIGHT - 40, self.WIDTH, 40))
@@ -54,10 +54,10 @@ class Chat(object):
         win.blit(type_chat, (self.x + 5, self.y + 50 - type_chat.get_height()/2))
 
     def type(self, char, delete=False):
-        """TODO: Docstring for type.
-
-        :char: TODO
-        :returns: TODO
+        """
+        Handles typing.
+        :char: str
+        :returns: None
 
         """
         if delete:
