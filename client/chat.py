@@ -5,11 +5,11 @@ import pygame
 
 class Chat(object):
 
-    """Instanciate a chat box and its properties"""
+    """Instantiate a chat box and its properties"""
 
     def __init__(self, x, y):
         """
-        Initialyze the chat properties and recieves the position.
+        Initialize the chat properties and receives the position.
         :x: int
         :y: int
         """
@@ -25,20 +25,18 @@ class Chat(object):
 
     def update_chat(self, msg):
         """
-        Recieves a string for messege and append it to content
+        Receives a string for message and append it to content
         :msg: str
         :returns: None
-
         """
         self.content.append(msg)
 
     def draw(self, win):
         """
-        Drawns the chat box and handles all position in space of each elemente
+        Draws the chat box and handles all position in space of each element
         in chat.
         :win: Win
         :returns: None
-
         """
         pygame.draw.rect(win, (200, 200, 200), (self.x, self.y + self.HEIGHT - 40, self.WIDTH, 40))
         pygame.draw.line(win, (0,0,0), (self.x, self.y + self.HEIGHT - 40), (self.x + self.WIDTH, self.y + self.HEIGHT - 40), self.BORDER_THICKNESS)
@@ -58,7 +56,6 @@ class Chat(object):
         Handles typing.
         :char: str
         :returns: None
-
         """
         if delete:
             if len(self.typing) > 0:

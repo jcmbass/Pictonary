@@ -12,10 +12,13 @@ from chat import Chat
 
 class Game(object):
 
-    """Docstring for Game. """
+    """Handles all logic for game in client side, it stores every object that player is able to
+    interact and manipulate. Methods are responsible for listening when a player
+    is interacting with his mouse.
+    """
     BG = (255,255,255)
     def __init__(self):
-        """TODO: to be defined. """
+        """Instantiate the game object and its properties. """
         self.WIDTH = 1300
         self.HEIGHT = 1000
         self.win = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
@@ -31,9 +34,9 @@ class Game(object):
             self.leaderboard.add_player(player)
 
     def draw(self):
-        """TODO: Docstring for draw.
-        :returns: TODO
-
+        """
+        Draws all elements in window.
+        :returns: None
         """
         self.win.fill(self.BG)
         self.leaderboard.draw(self.win)
@@ -58,14 +61,15 @@ class Game(object):
             self.board.update(*clicked_board, self.draw_color)
 
     def run(self):
-        """TODO: Docstring for run.
-        :returns: TODO
+        """
+        Runs on background and listen to all events.
+        If mouse is pressed calls the right actions.
+        :returns: None
 
         """
         run = True
-        clock = pygame.time.Clock()
+        #clock = pygame.time.Clock()
         while run:
-            clock.tick(120)
             self.draw()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

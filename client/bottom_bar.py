@@ -20,9 +20,10 @@ class BottomBar(object):
 
     def __init__(self, x, y, game):
         """
-        Instanciate all properties for button bar.
-        :x: int
-        :y: int
+        Instantiate all properties for bottom bar making sure the right possition
+        for each element is applied.
+        :x: float
+        :y: float
         :game: Game
         """
         self.x = x
@@ -57,7 +58,8 @@ class BottomBar(object):
 
     def draw(self, win):
         """
-        Draws the bottom bar.
+        Draws the bottom bar box with each button in its position.
+        It also draws the color paleth with color_buttons property.
         :win: Win
         :returns: None
         """
@@ -76,9 +78,11 @@ class BottomBar(object):
 
     def button_events(self):
         """
-        handle all button press events here
-        :returns: TODO
-
+        Handle all button press events here.
+        clear_button wipeout the board and set everything to white.
+        eraser_button set draw_color to white.
+        color_buttons set draw_color to the color selected.
+        :returns: None
         """
         mouse = pygame.mouse.get_pos()
 
