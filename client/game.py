@@ -17,8 +17,21 @@ class Game(object):
     is interacting with his mouse.
     """
     BG = (255,255,255)
+    COLORS = {
+            (255,255,255): 0,
+            (0,0,0): 1,
+            (255,0,0): 2,
+            (0,255,0): 3,
+            (0,0,255): 4,
+            (255,255,0): 5,
+            (255,140,0): 6,
+            (165,42,42): 7,
+            (128,0,128): 8
+    }
+
     def __init__(self, win, connection=None):
         """Instantiate the game object and its properties. """
+        pygame.font.init()
         self.connection = connection
         self.win = win
         self.leaderboard = Leaderboard(50, 125)
@@ -31,6 +44,16 @@ class Game(object):
         self.draw_color = (0,0,0)
         for player in self.players:
             self.leaderboard.add_player(player)
+
+    def add_player(self, player):
+        """TODO: Docstring for add_player.
+
+        :player: TODO
+        :returns: TODO
+
+        """
+        self.players.append(player)
+        self.leaderboard.add_player(player)
 
     def draw(self):
         """
@@ -52,12 +75,15 @@ class Game(object):
         :returns: None
         """
         mouse = pygame.mouse.get_pos()
-        if self.skip_button.click(*mouse):
-            print("mouse cliked")
+
+        if self.skip_button.click(*mouse) and not self.drawing:
+            skip = self.connection.send({1:[]})
 
         clicked_board = self.board.click(*mouse)
+
         if clicked_board:
             self.board.update(*clicked_board, self.draw_color)
+            self.connection.send({8:[*clicked_board, self.COLORS[tuple(self.draw_color)]]})
 
     def run(self):
         """
@@ -70,6 +96,32 @@ class Game(object):
         clock = pygame.time.Clock()
         while run:
             clock.tick(60)
+
+            try:
+                # get board
+                response = self.connection.send({3:[]})
+                if response:
+                    self.board.compressed_board = response
+                    self.board.translated_board()
+
+                #get time
+                response = self.connection.send({9:[]})
+                self.top_bar.time = response
+
+                #get chat
+                response = self.connection.send({2:[]})
+                self.chat.update_chat(response)
+
+                #get round info
+                self.top_bar.word = self.connection.send({6:[]})
+                self.top_bar.round = self.connection.send({5:[]})
+                self.drawing = self.connection.send({11:[]})
+                self.top_bar.drawing = self.drawing
+                self.top_bar.max_round = len(self.players)
+            except:
+                run = False
+                break
+
             self.draw()
             for event in pygame.event.get():
 
@@ -82,10 +134,15 @@ class Game(object):
                     self.bottom_bar.button_events()
 
                 if event.type == pygame.KEYDOWN:
-                    # gets the key name
-                    key_name = pygame.key.name(event.key)
+                    if not self.drawing:
+                        if event.key == pygame.K_RETURN:
+                            self.connection.send({0:[self.chat.typing]})
+                            self.chat.typing = ""
+                    else:
+                        # gets the key name
+                        key_name = pygame.key.name(event.key)
 
-                    # converts to lowercase the key name
-                    key_name = key_name.lower()
-                    self.chat.type(key_name)
+                        # converts to lowercase the key name
+                        key_name = key_name.lower()
+                        self.chat.type(key_name)
         pygame.quit()

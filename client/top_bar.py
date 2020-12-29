@@ -57,9 +57,9 @@ class TopBar(object):
 
         for char in text:
             if char != " ":
-                new_str += "_"
+                new_str += " _ "
             else:
-                new_str += " "
+                new_str += "   "
 
         return new_str
 

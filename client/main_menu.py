@@ -21,7 +21,7 @@ class MainMenu(object):
         self.name_font = pygame.font.SysFont("comicsans", 80)
         self.title_font = pygame.font.SysFont("comicsans", 120)
         self.enter_font = pygame.font.SysFont("comicsans", 60)
-        
+
     def draw(self):
         """TODO: Docstring for draw.
 

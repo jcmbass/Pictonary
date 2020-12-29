@@ -18,18 +18,18 @@ class Chat(object):
         self.WIDTH = 225
         self.HEIGHT = 800
         self.BORDER_THICKNESS = 5
-        self.content = ["Hello" for _ in range(100)]
+        self.content = []
         self.typing = ""
         self.type_font = pygame.font.SysFont("comicsans", 30)
         self.CHAT_GAP = 20
 
-    def update_chat(self, msg):
+    def update_chat(self, content):
         """
         Receives a string for message and append it to content
-        :msg: str
+        :content: str
         :returns: None
         """
-        self.content.append(msg)
+        self.content = content
 
     def draw(self, win):
         """

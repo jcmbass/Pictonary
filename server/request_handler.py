@@ -16,7 +16,7 @@ class Server(object):
     Parses through the client requests and initialize events according to the
     key received from client.
     """
-    PLAYERS = 1
+    PLAYERS = 4
 
     def __init__(self):
         self.connection_queue = []
@@ -76,7 +76,7 @@ class Server(object):
                             skips = player.game.round.skips
                             send_msg[7] = skips
                         elif key == 8:  # update board
-                            x, y, color = data[8][:3]
+                            x, y, color = data['8'][:3]
                             player.game.update_board(x, y, color)
                         elif key == 9:  # get round time
                             t = player.game.round.time
@@ -88,15 +88,15 @@ class Server(object):
 
                 send_msg = json.dumps(send_msg)
                 conn.sendall(send_msg.encode() + ".".encode())
-                
+
             except Exception as e:
                 print(f"[EXCEPTION] {player.get_name()}:", e)
                 break
 
+        player.game.player_disconnected(player)
         print(F"[DISCONNECT] {player.name} DISCONNECTED")
-        # player.game.player_disconnected(player)
         conn.close()
-    
+
     def handle_queue(self, player):
         """
         adds player to queue and creates new game if enough players
@@ -105,10 +105,10 @@ class Server(object):
         """
         self.connection_queue.append(player)
 
-        if len(self.connection_queue) >= self.PLAYERS: 
+        if len(self.connection_queue) >= self.PLAYERS:
             game = Game(self.game_id, self.connection_queue[:])
 
-            for p in self.connection_queue:
+            for p in game.players:
                 p.set_game(game)
 
             self.game_id += 1

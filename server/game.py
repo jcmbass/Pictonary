@@ -65,9 +65,6 @@ class Game(object):
 
         # TODO check this later
         if player in self.players:
-            player_ind = self.players.index(player)
-            if player_ind >= self.player_draw_ind:
-                self.player_draw_ind -= 1
             self.players.remove(player)
             self.round.player_left(player)
             self.round.chat.update_chat(f"Player {player.get_name()} disconnected.")
