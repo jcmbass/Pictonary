@@ -21,7 +21,7 @@ class MainMenu(object):
         self.name_font = pygame.font.SysFont("comicsans", 80)
         self.title_font = pygame.font.SysFont("comicsans", 120)
         self.enter_font = pygame.font.SysFont("comicsans", 60)
-
+        
     def draw(self):
         """TODO: Docstring for draw.
 
@@ -36,11 +36,11 @@ class MainMenu(object):
         self.win.blit(name, (100, 400))
 
         if self.waiting:
-            enter = self.enter_font.render("In Queue...", 1, (0,0,0))
-            self.win.blit(enter, (self.WIDTH/2 - title.get_width()/2, 800))
+            enter = self.enter_font.render("In Queue...", 1, (0, 0, 0))
+            self.win.blit(enter, (self.WIDTH / 2 - title.get_width() / 2, 800))
         else:
-            enter = self.enter_font.render("Press enter to join a game...", 1, (0,0,0))
-            self.win.blit(enter, (self.WIDTH/2 - title.get_width()/2, 800))
+            enter = self.enter_font.render("Press enter to join a game...", 1, (0, 0, 0))
+            self.win.blit(enter, (self.WIDTH / 2 - title.get_width() / 2, 800))
 
         pygame.display.update()
 
@@ -76,12 +76,11 @@ class MainMenu(object):
                         if len(self.name) > 1:
                             self.waiting = True
                             self.n = Network(self.name)
-
                     else:
                         # gets the key name
                         key_name = pygame.key.name(event.key)
 
-                        # converts to lowercase the key name
+                        # converts to uppercase the key name
                         key_name = key_name.lower()
                         self.type(key_name)
 
@@ -95,13 +94,13 @@ class MainMenu(object):
         if char == "backspace":
             if len(self.name) > 0:
                 self.name = self.name[:-1]
-            elif char == "space":
-                self.name += " "
-            elif len(char) == 1:
-                self.name += char
+        elif char == "space":
+            self.name += " "
+        elif len(char) == 1:
+            self.name += char
 
-            if len(self.name) >= 20:
-                self.name = self.name[:20]
+        if len(self.name) >= 20:
+            self.name = self.name[:20]
 
 if __name__ == "__main__":
     pygame.font.init()
