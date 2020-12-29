@@ -20,7 +20,7 @@ class Chat(object):
         self.BORDER_THICKNESS = 5
         self.content = ["Hello" for _ in range(100)]
         self.typing = ""
-        self.chat_font = pygame.font.SysFont("comicsans", 20)
+        self.type_font = pygame.font.SysFont("comicsans", 30)
         self.CHAT_GAP = 20
 
     def update_chat(self, msg):
@@ -45,20 +45,25 @@ class Chat(object):
             self.content = self.content[:-1]
 
         for i, chat in enumerate(self.content):
-            txt = self.chat_font.render(" - " + chat, 1,(0,0,0))
+            txt = self.type_font.render(" - " + chat, 1,(0,0,0))
             win.blit(txt, (self.x + 8,10 + self.y + i*self.CHAT_GAP))
 
-        type_chat = self.chat_font.render(self.typing, 1, (0,0,0))
-        win.blit(type_chat, (self.x + 5, self.y + 50 - type_chat.get_height()/2))
+        type_chat = self.type_font.render(self.typing, 1, (0,0,0))
+        win.blit(type_chat, (self.x + 5, self.y + self.HEIGHT - 20 - type_chat.get_height()/2))
 
-    def type(self, char, delete=False):
+    def type(self, char):
         """
         Handles typing.
         :char: str
         :returns: None
         """
-        if delete:
+        if char == "backspace":
             if len(self.typing) > 0:
                 self.typing = self.typing[:-1]
-        else:
+        elif char == "space":
+            self.typing += " "
+        elif len(char) == 1:
             self.typing += char
+
+        if len(self.typing) >= 25:
+            self.typing = self.typing[:25]

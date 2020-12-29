@@ -2,13 +2,13 @@ import pygame
 from button import Button, TextButton
 from board import Board
 from top_bar import TopBar
-from main_menu import MainMenu
 from menu import Menu
 from tool_bar import ToolBar
 from leaderboard import Leaderboard
 from player import Player
 from bottom_bar import BottomBar
 from chat import Chat
+from network import Network
 
 class Game(object):
 
@@ -17,11 +17,10 @@ class Game(object):
     is interacting with his mouse.
     """
     BG = (255,255,255)
-    def __init__(self):
+    def __init__(self, win, connection=None):
         """Instantiate the game object and its properties. """
-        self.WIDTH = 1300
-        self.HEIGHT = 1000
-        self.win = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        self.connection = connection
+        self.win = win
         self.leaderboard = Leaderboard(50, 125)
         self.board = Board(305, 125)
         self.top_bar = TopBar(10, 10, 1280, 100)
@@ -73,15 +72,20 @@ class Game(object):
             clock.tick(60)
             self.draw()
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     run = False
                     break
+
                 if pygame.mouse.get_pressed()[0]:
                     self.check_clicks()
                     self.bottom_bar.button_events()
-        pygame.quit()
 
-if __name__ == "__main__":
-    pygame.font.init()
-    g = Game()
-    g.run()
+                if event.type == pygame.KEYDOWN:
+                    # gets the key name
+                    key_name = pygame.key.name(event.key)
+
+                    # converts to lowercase the key name
+                    key_name = key_name.lower()
+                    self.chat.type(key_name)
+        pygame.quit()
