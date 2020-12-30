@@ -8,11 +8,13 @@ from player import Player
 
 class MainMenu(object):
 
-    """Docstring for MainMenu. """
+    """First screen seen by the players. They will enter their name here. """
     BG = (255,255,255)
 
     def __init__(self):
-        """TODO: to be defined. """
+        """
+        Initialize the main menu and stores players name
+        """
         self.WIDTH = 1300
         self.HEIGHT = 1000
         self.win = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
@@ -23,10 +25,9 @@ class MainMenu(object):
         self.enter_font = pygame.font.SysFont("comicsans", 60)
 
     def draw(self):
-        """TODO: Docstring for draw.
-
-        :returns: TODO
-
+        """
+        Draws the windows and display messege for players waiting in Queue
+        :returns: None
         """
         self.win.fill(self.BG)
         title = self.title_font.render("Pictonary!", 1, (0,0,0))
@@ -45,9 +46,10 @@ class MainMenu(object):
         pygame.display.update()
 
     def run(self):
-        """TODO: Docstring for run.
-        :returns: TODO
-
+        """
+        Handles user input for name, and launches game when number of players
+        is met. 
+        :returns: None
         """
         run = True
         clock = pygame.time.Clock()
@@ -85,11 +87,10 @@ class MainMenu(object):
                         self.type(key_name)
 
     def type(self, char):
-        """TODO: Docstring for type.
-
-        :char: TODO
-        :returns: TODO
-
+        """
+        Handles useer input in order to lowercase everything.
+        :char: str
+        :returns: None
         """
         if char == "backspace":
             if len(self.name) > 0:

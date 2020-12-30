@@ -46,11 +46,10 @@ class Game(object):
             self.leaderboard.add_player(player)
 
     def add_player(self, player):
-        """TODO: Docstring for add_player.
-
-        :player: TODO
-        :returns: TODO
-
+        """
+        Appends a player to list of players
+        :player: Player
+        :returns: None
         """
         self.players.append(player)
         self.leaderboard.add_player(player)
@@ -90,7 +89,6 @@ class Game(object):
         Runs on background and listen to all events.
         If mouse is pressed calls the right actions.
         :returns: None
-
         """
         run = True
         clock = pygame.time.Clock()
