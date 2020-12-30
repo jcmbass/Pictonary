@@ -82,14 +82,14 @@ class Game(object):
         scores = {player.name:player.get_score() for player in self.players}
         return scores
 
-    def skip(self):
+    def skip(self, player):
         """
         Increments the round skips, if skips are greater than
         threshold, starts new round.
         :returns: bool
         """
         if self.round:
-            new_round = self.round.skip()
+            new_round = self.round.skip(player)
             self.round.chat.update_chat(f"Player has voted to to skip ({self.round.skips}/{len(self.players) - 2})")
             if new_round:
                 self.round.chat.update_chat(f"Round has been skipped")

@@ -41,6 +41,7 @@ class Server(object):
                 # Player is not a part of game
                 keys = [int(key) for key in data.keys()]
                 send_msg = {key:[] for key in keys}
+                last_board = None
 
                 # Handle all the especific keys
                 for key in keys:
@@ -55,7 +56,7 @@ class Server(object):
                             correct = player.game.player_guess(player, data['0'][0])
                             send_msg[0] = correct
                         elif key == 1:  # skip
-                            skip = player.game.skip()
+                            skip = player.game.skip(player)
                             send_msg[1] = skip
                         elif key == 2:  # get chat
                             content = player.game.round.chat.get_chat()
@@ -76,8 +77,9 @@ class Server(object):
                             skips = player.game.round.skips
                             send_msg[7] = skips
                         elif key == 8:  # update board
-                            x, y, color = data['8'][:3]
-                            player.game.update_board(x, y, color)
+                            if player.game.round.player_drawing == player:
+                                x, y, color = data['8'][:3]
+                                player.game.update_board(x, y, color)
                         elif key == 9:  # get round time
                             t = player.game.round.time
                             send_msg[9] = t
@@ -92,6 +94,12 @@ class Server(object):
             except Exception as e:
                 print(f"[EXCEPTION] {player.get_name()}:", e)
                 break
+
+        if player.game:
+            player.game.player_disconnected(player)
+
+        if player in self.connection_queue:
+            self.connection_queue.remove(player)
 
         player.game.player_disconnected(player)
         print(F"[DISCONNECT] {player.name} DISCONNECTED")

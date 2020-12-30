@@ -42,8 +42,7 @@ class Game(object):
         self.bottom_bar = BottomBar(305, 880, self)
         self.chat = Chat(1050, 125)
         self.draw_color = (0,0,0)
-        for player in self.players:
-            self.leaderboard.add_player(player)
+        self.drawing = False
 
     def add_player(self, player):
         """
@@ -64,7 +63,8 @@ class Game(object):
         self.top_bar.draw(self.win)
         self.board.draw(self.win)
         self.skip_button.draw(self.win)
-        self.bottom_bar.draw(self.win)
+        if self.drawing:
+            self.bottom_bar.draw(self.win)
         self.chat.draw(self.win)
         pygame.display.update()
 
