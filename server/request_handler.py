@@ -3,6 +3,7 @@ Main THREAD
 Handles all of the connections, creating new games and
 requests from the client(s).
 """
+import pdb
 
 import socket
 import threading
@@ -16,7 +17,7 @@ class Server(object):
     Parses through the client requests and initialize events according to the
     key received from client.
     """
-    PLAYERS = 4
+    PLAYERS = 1
 
     def __init__(self):
         self.connection_queue = []
@@ -45,6 +46,7 @@ class Server(object):
 
                 # Handle all the especific keys
                 for key in keys:
+                    #pdb.set_trace()
                     if key == -1:   # get game, returns a list of players
                         if player.game:
                             send = {player.get_name():player.get_score() for player in player.game.players}
